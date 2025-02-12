@@ -21,3 +21,11 @@ sudo certbot renew --dry-run
 ```
 sudo certbot renew
 ```
+
+## Server Specifications ([ocalaavenue.net](https://ocalaavenue.net))
+
+- **VPS**: Amazon Lightsail (4 GB RAM, 2 vCPUs, 80 GB SSD)
+- **Domain Name Registrar**: Amazon Route 53
+- **Object Storage**: Amazon S3
+- **Main Server**: Gmail (not working now)
+
