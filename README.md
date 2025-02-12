@@ -1,3 +1,5 @@
+This repository contains configuration files for running a Mastodon server at [ocalaavenue.net](https://ocalaavenue.net). These configurations are based on those from the official Mastodon repository: [mastodon/mastodon](https://github.com/mastodon/mastodon).
+
 ## Certificate Renewal with Let's Encrypt
 
 Mastodon uses ports that conflict with those required for Let's Encrypt's HTTP-01 challenge, which prevents Certbot from automatically renewing certificates while the server is running. Therefore, you must manually stop the Mastodon server before renewing the certificates.
