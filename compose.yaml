@@ -32,7 +32,7 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./dist/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt/live/ocalaavenue.net/fullchain.pem:/etc/letsencrypt/live/ocalaavenue.net/fullchain.pem
       - /etc/letsencrypt/live/ocalaavenue.net/privkey.pem:/etc/letsencrypt/live/ocalaavenue.net/privkey.pem
     networks:
@@ -43,7 +43,7 @@ services:
     image: ghcr.io/mastodon/mastodon:v4.3.3
     restart: always
     env_file: .env.production
-    command: bash -c "bundle exec rake db:migrate; bundle exec puma -C puma.rb"
+    command: bash -c "bundle exec rake db:migrate; bundle exec puma -C config/puma.rb"
     networks:
       - external_network
       - internal_network
