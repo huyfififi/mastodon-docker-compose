@@ -1,4 +1,6 @@
-# Volumes
-
+# volumes
 postgres14/
 redis/
+
+# envs
+.env.production
