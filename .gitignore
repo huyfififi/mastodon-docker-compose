@@ -4,3 +4,6 @@ redis/
 
 # envs
 .env.production
+
+# PostgreSQL dump file
+dumps/
