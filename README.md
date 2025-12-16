@@ -65,10 +65,15 @@ Or check cron:
 sudo crontab -l -u root | grep certbot
 ```
 
+## Database Backup
+
+```
+docker exec db pg_dump -Fc -U postgres postgres > dumps/202604161211.dump
+```
+
 ## Server Specifications ([ocalaavenue.net](https://ocalaavenue.net))
 
 - **VPS**: Amazon Lightsail (4 GB RAM, 2 vCPUs, 80 GB SSD)
 - **Domain Name Registrar**: Amazon Route 53
 - **Object Storage**: Amazon S3
 - **Mail Server**: Gmail (not working now)
-
