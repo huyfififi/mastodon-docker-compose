@@ -65,6 +65,21 @@ Or check cron:
 sudo crontab -l -u root | grep certbot
 ```
 
+### Automatic Nginx Reload After Renewal
+
+To automatically reload nginx after certificate renewal (so you don't have to manually reload each time), create a post-renewal hook:
+
+```sh
+sudo mkdir -p /etc/letsencrypt/renewal-hooks/deploy
+sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh << 'EOF'
+#!/bin/bash
+docker compose -f /home/ubuntu/mastodon-docker-compose/compose.yaml exec -T nginx nginx -s reload
+EOF
+sudo chmod +x /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
+```
+
+This will automatically reload nginx whenever certbot successfully renews a certificate, ensuring the new certificate is used immediately without manual intervention.
+
 ## Database Backup
 
 ```
