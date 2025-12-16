@@ -89,6 +89,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt/live/ocalaavenue.net/fullchain.pem:/etc/letsencrypt/live/ocalaavenue.net/fullchain.pem
       - /etc/letsencrypt/live/ocalaavenue.net/privkey.pem:/etc/letsencrypt/live/ocalaavenue.net/privkey.pem
+      - /var/www/certbot:/var/www/certbot:ro
     networks:
       - external_network
       - internal_network

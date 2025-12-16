@@ -2,7 +2,24 @@ This repository contains configuration files for running a Mastodon server at [o
 
 ## Certificate Renewal with Let's Encrypt
 
-Mastodon uses ports that conflict with those required for Let's Encrypt's HTTP-01 challenge, which prevents Certbot from automatically renewing certificates while the server is running. Therefore, you must manually stop the Mastodon server before renewing the certificates.
+This setup uses webroot authentication, which allows certificate renewal without stopping the server. Certbot writes challenge files to `/var/www/certbot`, which nginx serves automatically.
+
+### Initial Setup
+
+Before the first certificate issuance, create the webroot directory:
+
+```sh
+sudo mkdir -p /var/www/certbot
+sudo chmod 755 /var/www/certbot
+```
+
+### Initial Certificate Issuance
+
+For the first time obtaining a certificate:
+
+```sh
+sudo certbot certonly --webroot -w /var/www/certbot -d ocalaavenue.net
+```
 
 ### Check the Current Certificate Status
 
@@ -18,8 +35,34 @@ sudo certbot renew --dry-run
 
 ### Renew the Certificates
 
-```
+```sh
 sudo certbot renew
+```
+
+The renewal process will work automatically without stopping nginx or any other services. After renewal, you may need to reload nginx to use the new certificates:
+
+```sh
+docker compose exec nginx nginx -s reload
+```
+
+Or restart the nginx container:
+
+```sh
+docker compose restart nginx
+```
+
+### Automatic Renewal
+
+Certbot typically sets up automatic renewal via systemd timer or cron. To verify:
+
+```sh
+sudo systemctl status certbot.timer
+```
+
+Or check cron:
+
+```sh
+sudo crontab -l -u root | grep certbot
 ```
 
 ## Server Specifications ([ocalaavenue.net](https://ocalaavenue.net))
