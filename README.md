@@ -6,11 +6,11 @@ This setup uses webroot authentication, which allows certificate renewal without
 
 ### Initial Setup
 
-Before the first certificate issuance, create the webroot directory:
+Before the first certificate issuance, create the webroot directory structure:
 
 ```sh
-sudo mkdir -p /var/www/certbot
-sudo chmod 755 /var/www/certbot
+sudo mkdir -p /var/www/certbot/.well-known/acme-challenge
+sudo chmod -R 755 /var/www/certbot
 ```
 
 ### Initial Certificate Issuance
