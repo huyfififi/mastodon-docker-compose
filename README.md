@@ -80,6 +80,8 @@ sudo chmod +x /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 
 This will automatically reload nginx whenever certbot successfully renews a certificate, ensuring the new certificate is used immediately without manual intervention.
 
+> **Note:** This only works because nginx's container mounts the whole `/etc/letsencrypt` directory (see `compose.yaml`), not the individual `fullchain.pem`/`privkey.pem` files. Certbot renewal doesn't edit those files in place — it writes new versioned files under `archive/` and repoints the `live/` symlinks at them. A bind mount of the individual files resolves the symlink once, at container creation, so it keeps pointing at the old certificate forever regardless of reloads. Mounting the parent directory keeps the symlinks intact inside the container so a reload actually picks up the renewed certificate.
+
 ## Database Backup
 
 ```
